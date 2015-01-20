@@ -1,0 +1,38 @@
+<template name='signup'>
+	<form>
+		<h1>Sign up</h1>
+		<input type='text' id='su-username' placeholder='Username'>
+		<input type='text' id='su-email' placeholder='Email'>
+		<input type='password' id='su-password' placeholder='Password'>
+		<button>Sign up</button>
+	</form>
+</template>
+
+<template name='login'>
+	<form>
+		<h1>Sign in</h1>
+		<input type='email' id='si-email' placeholder='Email'>
+		<input type='password' id='si-password' placeholder='Password'>
+		<button> Log In</button>
+	</form>
+</template>
+
+<template name='logout'>
+	<form>
+		{{currentUser.username}}
+		<button>Log Out</button>
+	</form>
+</template>
+
+<template name='signupLogin'>
+	{{#if loggingIn }}
+		Logging In...
+	{{else}}
+		{{#if currentUser}}
+			{{> logout}}
+		{{else}}
+			{{> signup}}
+			{{> login}}
+		{{/if}}
+	{{/if}}
+</template>
