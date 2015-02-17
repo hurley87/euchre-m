@@ -3,16 +3,17 @@
 	{{#if currentUser }}
 		{{> status}}
 		{{> table}}
+		
 	{{/if}}
 </template>
 
 <template name='status'>
 	<p> <a href="/">Go Home</a></p>
+	<h1>{{user.username}} vs {{otherPlayer.username}}</h1>
 	<h2>
-	Game between you and {{otherPlayer.username}}
 	{{#if inProgress}}
 		{{#if yourTurn}}
-			Your Turn
+			{{> gameStart}}
 		{{else}}	
 			Other players turn
 		{{/if}}
@@ -20,18 +21,44 @@
 	</h2>
 </template>
 
-<template name='table'>
-
+<template name='gameStart'>
+	{{> myHand}}
+	<h2>Your Turn</h2>
+	{{#if trump}}
+	<p>Trump is {{trump}}</p>
+	{{else}}
+	<a href="#" class='pickcard'>Pick up {{decisionCard.name}} of {{decisionCard.suit}}</a> | <a class='pass' href="#">Pass to other player</a>
+	{{/if}}
 </template>
 
-<template name='hand'>
-	<div id='hand'>
-		<h2>hand</h2>
-		{{#each player.hand}}
-		<div class='card {{suit}}'>
-			<div>{{name}}</div>
-			<div>{{suit}}</div>
-		</div>
-		{{/each}}
-	</div>	
+<template name='table'>
+	<h1>The table</h1>
+	<p>{{decisionCard.name}} of {{decisionCard.suit}}</p>
+	<p>Trump is {{> trump}}</p>
+</template>
+
+<template name='trump'>
+   {{#if trump}}
+   		{{trump}}.
+   {{else}}
+   		not made yet.
+   {{/if}}
+</template>
+
+<template name='card'>
+		<div class='card'>{{name}} of {{suit}}</div>
+</template>
+
+<template name='myHand'>
+	<h3>My hand</h3>
+	{{#each user.hand}}
+		{{> card}}
+	{{/each}}
+</template>
+
+<template name='otherHand'>
+	<h3>Other Hand</h3>
+	{{#each otherPlayer.hand}}
+		{{> card}}
+	{{/each}}
 </template>

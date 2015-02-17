@@ -19,5 +19,11 @@ Meteor.methods({
 	createGame: function(otherPlayerId) {
 		var game =  GameFactory.createGame([Meteor.userId(), otherPlayerId]);
 		Games.insert(game);
+	},
+	makeTrump: function(game, player, trump) {
+
+	},
+	pickUpCard: function(game, player) {
+		console.log()
 	}
 });

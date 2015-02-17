@@ -1,8 +1,8 @@
 GameFactory = {};
 
 GameFactory.createGame = function(playerIds) {
-	var deck = createDeck(),
-		players = createPlayers(playerIds);
+	var deck = createDeck();
+	var	players = createPlayers(playerIds);
 
 	GameFactory.dealPlayers(players, deck);	
 
@@ -11,12 +11,13 @@ GameFactory.createGame = function(playerIds) {
 		players: players,
 		currentTurn: playerIds,
 		inProgress: true,
-		started: new Date()
+		started: new Date(),
+		trump: null
 	};
 };
 
 GameFactory.dealPlayers = function (players, deck) {
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 11; i++) {
         Object.keys(players).forEach(function (id) {
             players[id].hand.push(deck.shift());
         });
@@ -57,6 +58,13 @@ function createDeck() {
 				name: name
 			});
 		}
+	});
+
+	// add Joker to players hand
+	cards.push({
+		suit: 'Joker',
+		value: 15,
+		name: ''
 	});
 
 	return _.shuffle(cards);
