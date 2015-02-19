@@ -3,19 +3,20 @@
 	{{#if currentUser }}
 		{{> status}}
 		{{> table}}
-		
 	{{/if}}
 </template>
 
 <template name='status'>
-	<p> <a href="/">Go Home</a></p>
+	<p><a href="/">Go Home</a></p>
+	<p><a class='dgame' href="/">Delete Game</a></p>
 	<h1>{{user.username}} vs {{otherPlayer.username}}</h1>
 	<h2>
 	{{#if inProgress}}
 		{{#if yourTurn}}
 			{{> gameStart}}
 		{{else}}	
-			Other players turn
+			Other playing is making it trump
+			{{> myHand }}
 		{{/if}}
 	{{/if}}
 	</h2>
@@ -33,7 +34,6 @@
 
 <template name='table'>
 	<h1>The table</h1>
-	<p>{{decisionCard.name}} of {{decisionCard.suit}}</p>
 	<p>Trump is {{> trump}}</p>
 </template>
 
