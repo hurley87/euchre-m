@@ -22,13 +22,17 @@
 </template>
 
 <template name='gameStart'>
+	<div id='startingMove'>
 	{{> myHand}}
 	<h2>Your Turn</h2>
 	{{#if trump}}
 	<p>Trump is {{trump}}</p>
 	{{else}}
+	<div class='decisionTime'>
 	<a href="#" class='pickcard'>Pick up {{decisionCard.name}} of {{decisionCard.suit}}</a> | <a class='pass' href="#">Pass to other player</a>
+	</div>
 	{{/if}}
+	</div>
 </template>
 
 <template name='table'>
