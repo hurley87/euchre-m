@@ -26,6 +26,11 @@ Template.gameList.helpers({
         return Games.find({ inProgress: true }).map(function (game) {
             game.otherPlayer = Meteor.users.findOne(otherId(game)).username;
             game.started = moment(game.started).fromNow();
+            if (game.players[Meteor.userId()].dealer == true) {
+            	game.dealer = false;
+            } else {
+            	game.dealer = true;
+            }
             return game;
         });
     }

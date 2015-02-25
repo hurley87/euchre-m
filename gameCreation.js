@@ -12,6 +12,8 @@ GameFactory.createGame = function(playerIds) {
 		deck: deck,
 		players: players,
 		currentTurn: playerIds,
+		dealer: false,
+		std: false,
 		inProgress: true,
 		started: new Date(),
 		trump: null
@@ -19,7 +21,6 @@ GameFactory.createGame = function(playerIds) {
 };
 
 GameFactory.dealPlayers = function (players, deck) {
-	console.log(players);
     for (var i = 0; i < 5; i++) {
         Object.keys(players).forEach(function (id) {
             players[id].chest.push(deck.shift());

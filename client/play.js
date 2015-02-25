@@ -27,6 +27,7 @@ Template.choosingTrump.events({
         var game = Games.findOne({ _id: template.data._id });
         var modifier = { $set: {} };
         modifier.$set['currentTurn'] = game.currentTurn.reverse();
+        modifier.$set['std'] = true;
 
         Games.update(game._id, modifier);
     }
@@ -36,7 +37,6 @@ Template.choosingTrump.events({
 Template.choosingTrump.helpers({
 	game: function() {
 		var game = Games.findOne({ _id: template.data._id });
-		console.log("first" + game);
 		return game;
 	}
 });

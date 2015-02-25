@@ -22,17 +22,35 @@
 </template>
 
 <template name='choosingTrump'>
+	{{#if dealer}}
+		<h1>Your the dealer</h1>
+	{{/if}}
 	<div id='startingMove'>
 	{{> myHand}}
 	<h2>Your Turn</h2>
 	{{#if trump}}
 	<p>Trump is {{trump}}</p>
 	{{else}}
-	<div class='decisionTime'>
-	<a href="#" class='pickcard'>Pick up {{decisionCard.name}} of {{decisionCard.suit}}</a> | <a class='pass' href="#">Pass to other player</a>
-	</div>
+		{{#if dealer}}
+			{{#if std}}
+				{{> fourSuits}}
+			{{else}}
+				<div class='decisionTime'>
+				<a href="#" class='pickcard'>Pick up {{decisionCard.name}} of {{decisionCard.suit}}</a> | <a class='pass' href="#">Pass to other player</a>
+			</div>
+			{{/if}}
+		{{else}}
+		<a class='pass' href="#">Pass to other player</a> or choose trump {{> fourSuits}}
+		{{/if}}
 	{{/if}}
 	</div>
+</template>
+
+<template name='fourSuits'>
+	<div class='spades'>spades</div>
+	<div class='clubs'>clubs</div>
+	<div class='diamonds'>diamonds</div>
+	<div class='hearts'>hearts</div>
 </template>
 
 <template name='table'>
