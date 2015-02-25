@@ -1,4 +1,4 @@
-Template.gameStart.events({
+Template.choosingTrump.events({
 	'click .pickcard': function (evt, template) {
 		evt.preventDefault();
         $(evt.currentTarget).parent().siblings('.card').addClass('chooseCardToDrop');
@@ -8,20 +8,32 @@ Template.gameStart.events({
     'click .chooseCardToDrop': function(evt, template) {
     	evt.preventDefault();
     	var choosenCard = this;
-    	var game = Games.findOne({ _id: template.data._id });
+        var game = Games.findOne({ _id: template.data._id });
+        var oldId = game._id
     	var userHand = template.data.user.hand;
     	var indexOfCard = _.indexOf(userHand, choosenCard);
     	var newTrump = template.data.decisionCard.suit;
+        var thisUserId = Meteor.userId();
+    	userHand[indexOfCard] = template.data.decisionCard;   
 
-    	userHand[indexOfCard] = template.data.decisionCard;
- 		// set userHand to contain new card
- 		
-    	Games.update(game._id, { $set: { trump : newTrump, currentTurn: game.currentTurn.reverse()}  } );
+        var modifier = { $set: {} };
+        modifier.$set['currentTurn'] = game.currentTurn.reverse();
+        modifier.$set['trump'] = newTrump;
+        modifier.$set['players.'+ thisUserId +'.chest'] = userHand;
+
+    	Games.update(game._id, modifier);
+    },
+    'click .pass': function(evt, template) {
+        var game = Games.findOne({ _id: template.data._id });
+        var modifier = { $set: {} };
+        modifier.$set['currentTurn'] = game.currentTurn.reverse();
+
+        Games.update(game._id, modifier);
     }
     
 });	
 
-Template.gameStart.helpers({
+Template.choosingTrump.helpers({
 	game: function() {
 		var game = Games.findOne({ _id: template.data._id });
 		console.log("first" + game);

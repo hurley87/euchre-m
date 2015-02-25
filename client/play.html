@@ -13,7 +13,7 @@
 	<h2>
 	{{#if inProgress}}
 		{{#if yourTurn}}
-			{{> gameStart}}
+			{{> choosingTrump}}
 		{{else}}
 			{{> myHand }}
 		{{/if}}
@@ -21,7 +21,7 @@
 	</h2>
 </template>
 
-<template name='gameStart'>
+<template name='choosingTrump'>
 	<div id='startingMove'>
 	{{> myHand}}
 	<h2>Your Turn</h2>
